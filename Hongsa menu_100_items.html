@@ -1,0 +1,1718 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>เมนูอาหารและเครื่องดื่มทั้งหมด (โครงสร้างมาตรฐาน)</title>
+    <style>
+        /* CSS สำหรับจัดรูปแบบหน้าเว็บหลัก */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f0f0f0;
+        }
+
+        /* **************************************************** */
+        /* CSS ใหม่สำหรับคอนเทนเนอร์หัวข้อและโลโก้ */
+        /* **************************************************** */
+        .header-container {
+            text-align: center; /* จัดทุกอย่างในคอนเทนเนอร์ให้อยู่กึ่งกลาง */
+            margin-bottom: 30px; 
+            border-bottom: 5px solid #ff7043; /* เส้นใต้สีส้มแดงที่ดูสดใสและเด่นชัด */
+            padding-bottom: 15px;
+        }
+
+        .header-logo {
+            max-width: 400px; /* ขนาดสูงสุดของโลโก้ */
+            height: auto; 
+            display: block; /* ทำให้ภาพเป็นบล็อก */
+            margin: 0 auto 15px auto; /* จัดกึ่งกลาง และเพิ่มระยะห่างใต้โลโก้ */
+        }
+        
+        /* **************************************************** */
+        /* ปรับปรุง CSS สำหรับหัวข้อหลัก (Header) ให้ใหญ่และสวยงาม */
+        /* **************************************************** */
+        .header-title {
+            text-align: center; 
+            font-size: 5.5em; /* ขนาดตัวอักษรใหญ่ */
+            color: #1a237e; /* สีน้ำเงินเข้ม */
+            font-weight: 800; /* ตัวหนามาก */
+            margin: 0; /* ลบ margin ด้านบนและล่างออก */
+            padding: 0;
+            border-bottom: none; /* ลบเส้นใต้ที่ซ้ำซ้อนออก */
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1); /* เพิ่มเงาข้อความ */
+        }
+
+        /* คอนเทนเนอร์หลัก: ใช้ Grid เพื่อจัดเรียงการ์ดเมนู */
+        .menu-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); 
+            gap: 20px; 
+            max-width: 1400px;
+            margin: 0 auto;
+            padding-top: 0; 
+        }
+
+        /* **************************************************** */
+        /* CSS สำหรับการ์ดเมนูแต่ละรายการ (MENU CARD STANDARD) */
+        /* **************************************************** */
+        .menu-card {
+            /* ... (CSS สำหรับการ์ดเมนูคงเดิม) ... */
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+            overflow: hidden; 
+            display: flex;
+            flex-direction: column;
+            min-height: 400px; 
+            transition: transform 0.2s;
+        }
+        
+        .menu-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+        }
+        /* ... (CSS ส่วนอื่น ๆ ของเมนูยังคงเดิม) ... */
+        .status-header {
+            padding: 10px 15px;
+            background-color: #e9ecef;
+            border-bottom: 1px solid #dee2e6;
+            color: #28a745; 
+            font-weight: bold;
+            display: flex;
+            justify-content: space-between;
+        }
+        .status-header .category {
+            font-weight: normal;
+            color: #6c757d;
+        }
+        .item-image {
+            width: 100%;
+            height: 200px; 
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #aaa;
+            font-style: italic;
+            font-size: 0.9em;
+            text-align: center;
+            background-color: #e9e9e9; 
+        }
+        .item-details {
+            padding: 15px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        .item-text {
+            border-bottom: 1px solid #f0f0f0; 
+            padding-bottom: 10px;
+            margin-bottom: 10px;
+            min-height: 50px; 
+        }
+        .item-details h2 {
+            margin: 0 0 5px 0;
+            color: #000;
+            font-size: 1.3em; 
+            line-height: 1.3;
+        }
+        .item-details p.code {
+            margin: 0;
+            color: #777;
+            font-size: 0.9em;
+        }
+        .item-details p.price {
+            margin: 0;
+            font-size: 1.7em;
+            color: #dc3545; 
+            font-weight: bold;
+            text-align: right;
+        }
+        .special-price {
+            color: #AA0000 !important; 
+        }
+        .drink-card .status-header {
+            background-color: #4CAF50;
+            color: #fff;
+        }
+        .drink-card .category {
+            color: #eee !important;
+        }
+        .placeholder {
+            background-color: #fafafa;
+            border: 1px solid #ddd;
+        }
+        .placeholder .status-header,
+        .placeholder .category,
+        .placeholder .item-details h2,
+        .placeholder .item-details p.price {
+            color: #aaa !important;
+        }
+    </style>
+</head>
+<body>
+
+<div class="header-container">
+    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRcNxmBM6CyVHSAMQf5HmUMXy684Xu3tBTM0Q&s" alt="HongSa Resort Logo" class="header-logo">
+    <h1 class="header-title">HongSa Resort (ຫົງສາລີສອດ)</h1>
+</div>
+
+<div class="menu-container">
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ผัด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM001.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.031118.jpg&appVersion=1.000036&signature=89d795e4ecdd745c7ca7572d17b11fcc6e10b9852eb667848fdb72f61bb9032b');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>กะเพาะปลาผัดแห้ง</h2>
+            <p class="code">รหัสเมนู: M001</p>
+        </div>
+        <p class="price special-price">700,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">อบ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM002.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.031318.jpg&appVersion=1.000036&signature=61c3db371d1532fa14180559029579777a5290a2b803e3ac2c6c5de7b7a2c03c');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>กุ้งอบวุ้นเส้น</h2>
+            <p class="code">รหัสเมนู: M002</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">อบ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM070.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.075131.jpg&appVersion=1.000036&signature=d83da1bbfb926270747213cf604729a414df85430ce42423fb7a4cd833979644');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>หมูอบวุ้นเส้น</h2>
+            <p class="code">รหัสเมนู: M003</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">แกง/ทะเล</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM003.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.032734.jpg&appVersion=1.000036&signature=82819558569a43d3681a18f5ecb0629a4fe8765d00b4b4f0cf531716cb74ec96');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>แกงเขียวหวาน หมึกยัดใส้ ทะเล ปลาหมึกไข่ กุ้ง</h2>
+            <p class="code">รหัสเมนู: M004</p>
+        </div>
+        <p class="price">400,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">แกง</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM004.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.031601.jpg&appVersion=1.000036&signature=b613a05b5ce884c40b2bfc447c6f1b9cc136cfe307b58396258fc0b06841867e');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>แกงเขียวหวาน หมู ไก่ เนื้อ ลูกชิ้นปลากราย</h2>
+            <p class="code">รหัสเมนู: M005</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้ม/จืด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM005.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.033527.jpg&appVersion=1.000036&signature=b241bfb39e52e98b982dcb04323ebafe8b206a6a3a6d6cc051db33a038cb4bb5');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>แกงจืดลูกชิ้นหมูสับสาหร่ายทะเล</h2>
+            <p class="code">รหัสเมนู: M006</p>
+        </div>
+        <p class="price">270,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้ม/จืด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM006.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.033432.jpg&appVersion=1.000036&signature=6420cbfc0fd88261508ce73c74176e6b6461b8f38bb708eabf99a65f5655e0c6');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>แกงจืด เต้าหู้ หมูสับ สาหร่าย</h2>
+            <p class="code">รหัสเมนู: M007</p>
+        </div>
+        <p class="price">270,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้ม/จืด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM008.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.033814.jpg&appVersion=1.000036&signature=cbe597583ed65329ffc70e28117f224359fecea53f1a2dab1edcd0376ea52ec3');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>แกงจืดกุ้งห่อหมูสับ</h2>
+            <p class="code">รหัสเมนู: M008</p>
+        </div>
+        <p class="price">270,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้ม/จืด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://i.ytimg.com/vi/JsOmL25r7Dc/hq720.jpg?sqp=-oaymwEhCK4FEIIDSFryq4qpAxMIARUAAAAAGAElAADIQj0AgKJD&rs=AOn4CLBUEPvblSgEtGM_cyhA4YvDEd4-ew');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>แกงจืดหมูสับกุ้งแห้งสาหร่ายทะเล</h2>
+            <p class="code">รหัสเมนู: M009</p>
+        </div>
+        <p class="price">270,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">แกง/เผ็ด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM009.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.034058.jpg&appVersion=1.000036&signature=2c4cf51d4cc1c55d8e668be576a80d9e85d99c97fca042bd7d146bfa71b82117');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>แกงป่าลูกชิ้นปลากราย</h2>
+            <p class="code">รหัสเมนู: M010</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">แกงส้ม</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM010.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.034429.jpg&appVersion=1.000036&signature=92bd1455a6c4b0652a0718a4ff55bca7a453b48172a5eae7fc24bd2bb0dcb4cc');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>แกงส้มแป๊ะซะปลาทอด</h2>
+            <p class="code">รหัสเมนู: M011</p>
+        </div>
+        <p class="price">450,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">แกงส้ม</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM011.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.034819.jpg&appVersion=1.000036&signature=71c8ffcb0dd890e395b15b15f4a0af2698164cc76ee08fd91a485763b53edaef');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>แกงส้มผักรวมกุ้ง</h2>
+            <p class="code">รหัสเมนู: M012</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้ม</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM012.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.035300.jpg&appVersion=1.000036&signature=69cbb68a941c5f51fb50e9360f609b3a00413e9d2cd364a5c8151b4a0647035e');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ไก่ต้มน้ำปลา</h2>
+            <p class="code">รหัสเมนู: M013</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ผัด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM013.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.035420.jpg&appVersion=1.000036&signature=a984a32569f58007b12263631bbd7b6e355e066657b480959e8bca49083cd58b');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ไก่ผัดเม็ดมะม่วง</h2>
+            <p class="code">รหัสเมนู: M014</p>
+        </div>
+        <p class="price special-price">700,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ข้าว</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM014.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.035554.jpg&appVersion=1.000036&signature=fcbdc1b46f246d9773e2809ab935c5d747764c2ea8dd83d580b7b8bf34c5de15');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ข้าวสวย (โถ)</h2>
+            <p class="code">รหัสเมนู: M015</p>
+        </div>
+        <p class="price">150,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ตุ๋น</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM015.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.035725.jpg&appVersion=1.000036&signature=074387c119fb00f1ee8146647686274e22a717ffffe2f8f251629c2fe26acfe7');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ขาหมูตุ๋นยอดผักคะน้า</h2>
+            <p class="code">รหัสเมนู: M016</p>
+        </div>
+        <p class="price special-price">700,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ตุ๋น</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM016.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.040451.jpg&appVersion=1.000036&signature=e2b1923473203d3c608baf0d6aaf9d26c232417ecd02ae9d11280e9ecf345217');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ขาหมูพะโล้</h2>
+            <p class="code">รหัสเมนู: M017</p>
+        </div>
+        <p class="price special-price">700,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM017.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.040854.jpg&appVersion=1.000036&signature=0a16be14d96576446aab86c21a37dd36a3cd4a55f10e20ffa43dd1cd7d46bf10');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ไข่เจียวหมูสับทรงเครื่อง</h2>
+            <p class="code">รหัสเมนู: M018</p>
+        </div>
+        <p class="price">150,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ย่าง</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM018.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.041104.jpg&appVersion=1.000036&signature=5ec8c99eb6b86690d08504779a3060f097fa36c56cfd06d34aef8487e76b72cf');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>คอหมูย่าง น้ำจิ้มแจ่ว</h2>
+            <p class="code">รหัสเมนู: M019</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ผัด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM019.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.041202.jpg&appVersion=1.000036&signature=d01786650adc255eb09ab310d50d68de20e581bf152a721b7facce393f6acdc4');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>คะน้าหมูกรอบ</h2>
+            <p class="code">รหัสเมนู: M020</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ตุ๋น</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM020.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.041602.jpg&appVersion=1.000036&signature=94165138a56c15d5da8c39cf35ae56869831f3e9a836f3c8af46c956875679ce');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ซี่โครงหมูตุ๋นเห็ดหอม</h2>
+            <p class="code">รหัสเมนู: M021</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM021.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.042300.jpg&appVersion=1.000036&signature=660dfb37cf5edcc72d20a75f4d1adb9667f6a0d0c81ac5d9d83347e6167c6e6b');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ซี่โครงหมูทอด</h2>
+            <p class="code">รหัสเมนู: M022</p>
+        </div>
+        <p class="price">250,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้ม</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM022.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.043242.jpg&appVersion=1.000036&signature=a3ee135d2aa5b51f6047a8283013b6cde08933423b13fa693d435b97544df7b4');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ต้มข่าไก่</h2>
+            <p class="code">รหัสเมนู: M023</p>
+        </div>
+        <p class="price">250,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้ม/แซ่บ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM023.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.043510.jpg&appVersion=1.000036&signature=397ce400c690ac90f8d3f8b13b58f5fb121f37a76be7896325d33fbeee8fb002');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ต้มแซ่บซี่โครงหมูอ่อน</h2>
+            <p class="code">รหัสเมนู: M024</p>
+        </div>
+        <p class="price">280,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้มยำ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM024.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.043721.jpg&appVersion=1.000036&signature=9ad488e3a8a99dee5d84ad5b8c18be8a50d68c420f5c75735770229c94c637ef');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ต้มยำกุ้งน้ำข้น (น้ำใส)</h2>
+            <p class="code">รหัสเมนู: M025</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้มยำ/ทะเล</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM025.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.043827.jpg&appVersion=1.000036&signature=c13d32bfc703babd1307a1d0227dc3219c0987ca4d5634ab27767a164f827806');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ต้มยำทะเลน้ำข้น (น้ำใส)</h2>
+            <p class="code">รหัสเมนู: M026</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้มยำ/ปลา</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM026.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.043944.jpg&appVersion=1.000036&signature=8b828d0fc6893cda4c287810ae79645ab6b8b752f0b0505d13811c2e1602f1df');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ต้มยำปลากะพงขาวน้ำใส (น้ำข้น)</h2>
+            <p class="code">รหัสเมนู: M027</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้มยำ/ปลา</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM027.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.044305.jpg&appVersion=1.000036&signature=3a7e5f5ecb933fd1082c5e689f611385706ffc2f5bc6d6cb4eecf84295afde19');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ต้มยำหัวปลาแซลม่อน</h2>
+            <p class="code">รหัสเมนู: M028</p>
+        </div>
+        <p class="price">270,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้ม/ปลา</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM028.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.045019.jpg&appVersion=1.000036&signature=77be715c6e3db1e5927cd0ec95c3a79e24ed596331182b609c0b6c7935f0c449');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ต้มส้มปลานิล</h2>
+            <p class="code">รหัสเมนู: M029</p>
+        </div>
+        <p class="price">270,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">อบ/ทะเล</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM029.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.045309.jpg&appVersion=1.000036&signature=68f897c9cb6b2416767cf8ff3b048f908e039b471e27d521af68a49ba2cf5d41');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ทะเลอบวุ้นเส้น</h2>
+            <p class="code">รหัสเมนู: M030</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">น้ำพริก</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM030.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.054734.jpg&appVersion=1.000036&signature=a8499448819821192cc019e424e7b6b3012d8c3bb3a1188f6de17cd8a3e366ce');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>น้ำพริกกะปิ ผักทอด ผักต้มกะทิ ปลาทูทอด ไข่ต้ม</h2>
+            <p class="code">รหัสเมนู: M031</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">น้ำพริก</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM031.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.054751.jpg&appVersion=1.000036&signature=c29126efd47a18c08ec8a3614f5a7f3db238fecc70bf5e9d70a156e731130a3c');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>น้ำพริกปลาทู ผักสด ผักลวก ไข่ต้ม</h2>
+            <p class="code">รหัสเมนู: M032</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">น้ำพริก</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM032.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.055135.jpg&appVersion=1.000036&signature=75af74d33ecb6603a8584c0515d701737cd57bec428ceab06a0339e1940ce578');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>น้ำพริกลงเรือ หมูหวาน ไข่เค็ม ผักสด</h2>
+            <p class="code">รหัสเมนู: M033</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM033.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.055542.jpg&appVersion=1.000036&signature=7dd375242ccf088d4d9b538a8f69c6197f141e01671186a9e3fb4727abcae65b');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลากะพงทอดน้ำปลา</h2>
+            <p class="code">รหัสเมนู: M034</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM034.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.055914.jpg&appVersion=1.000036&signature=2c15d2f11976271879f6869d554d40ed4ebc0dc60e18eb12ffdd0ee260168866');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลากะพงทอดราดพริก</h2>
+            <p class="code">รหัสเมนู: M035</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM035.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.060240.jpg&appVersion=1.000036&signature=a2412443dcfc4833513d5ebdefc1a26c7e60a0543769e02231ff53ecd8456101');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลากะพงทอดสมุนไพร</h2>
+            <p class="code">รหัสเมนู: M036</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/นึ่ง</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM036.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.060843.jpg&appVersion=1.000036&signature=3c2b0c7f81d9f57a5478cd7d811ed3316517a587f3a9224bc2f01db17c155316');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลากะพงนึ่งมะนาว</h2>
+            <p class="code">รหัสเมนู: M037</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ยำ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM037.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.061222.jpg&appVersion=1.000036&signature=fae90a72bf7b857efc650ed58e92dd542f6ecff12465658dddbd98cda70399e5');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลากะพงลุยสวน</h2>
+            <p class="code">รหัสเมนู: M038</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM038.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.061704.jpg&appVersion=1.000036&signature=837f5458e4a9c32235cca100f1d585242d46d86db07fe60aa6fb5c6555f0f9d5');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลากะพงสองใจ</h2>
+            <p class="code">รหัสเมนู: M039</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM039.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.062045.jpg&appVersion=1.000036&signature=a5042cfcce3445679ba8b4b9e7228b7661c48cc7066ec8724a0ad3465ae74db8');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลากะพงทอดสามรส</h2>
+            <p class="code">รหัสเมนู: M040</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM040.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.062822.jpg&appVersion=1.000036&signature=a2911044d86fe27f4e833c369f4650892f20cc2a687812b12a57eadc1b8e194d');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลาทับทิมทอดน้ำปลา</h2>
+            <p class="code">รหัสเมนู: M041</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM041.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.062154.jpg&appVersion=1.000036&signature=01f1a0ed8833de0c8d9304ba7359182d46f395981840ba065773d29a08ddd0f2');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลาทับทิมทอดราดพริก</h2>
+            <p class="code">รหัสเมนู: M042</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM042.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.062957.jpg&appVersion=1.000036&signature=d4566c61fb9ccae2242b8cdf7ae5ef80fc07a87e11052bfcec578842295b07d7');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลาทับทิมทอดสมุนไพร</h2>
+            <p class="code">รหัสเมนู: M043</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/นึ่ง</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM043.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.062515.jpg&appVersion=1.000036&signature=8570acf57068cb342985bbce98b7d4b7f691af8db1ab0c722bfb632e2634b628');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลาทับทิมนึ่งมะนาว</h2>
+            <p class="code">รหัสเมนู: M044</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ยำ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM044.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.062750.jpg&appVersion=1.000036&signature=63750941ad743734e0e4fc7323c5678b7219e90b10a32e0466eacab3559a6007');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลาทับทิมลุยสวน</h2>
+            <p class="code">รหัสเมนู: M045</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM045.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.063425.jpg&appVersion=1.000036&signature=5280fa47c76cd60606ca8d62d157cebb5b0c229634067d3b0f3c369c6bd3d7b0');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลาทับทิมสองใจ</h2>
+            <p class="code">รหัสเมนู: M046</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM046.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.063528.jpg&appVersion=1.000036&signature=33a443b222fc6e450ca40c34651ef60a1d359776fca4e8cfd0758b1cc0b8fc97');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลาทับทิมสามรส</h2>
+            <p class="code">รหัสเมนู: M047</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM047.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.063708.jpg&appVersion=1.000036&signature=b7d4e49c06004f40f3ee53320e57d5f570106829f09e7310a38c4a1152a05128');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลานิลทอดน้ำปลา</h2>
+            <p class="code">รหัสเมนู: M048</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM048.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.064513.jpg&appVersion=1.000036&signature=1a8401bb349806bdf4f29509baa44f29cb911a52cd8fc8b6e69bca5667a17918');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลานิลทอดราดพริก</h2>
+            <p class="code">รหัสเมนู: M049</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM049.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.064859.jpg&appVersion=1.000036&signature=4831ce6b62b716923d975da4235a0f6baa66431a17f8968c684b8de4e70da098');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลานิลทอดสมุนไพร</h2>
+            <p class="code">รหัสเมนู: M050</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/นึ่ง</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM050.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.065216.jpg&appVersion=1.000036&signature=636eb58e92ba53d918d52b4bedd9cf6aa4a9576c763b711b1978a941f2c81609');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลานิลนึ่งมะนาว</h2>
+            <p class="code">รหัสเมนู: M051</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ยำ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM051.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.065343.jpg&appVersion=1.000036&signature=602adc39ea617d70b6e29ba76a4e3ebbe4d93a9ca910d16b98b02be6fb006064');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลานิลลุยสวน</h2>
+            <p class="code">รหัสเมนู: M052</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM052.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.065606.jpg&appVersion=1.000036&signature=34dd2adff067dc2e8a8355a41942c9ab9cc451a5afb9f9e142b50145e02b6d3a');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลานิลสองใจ</h2>
+            <p class="code">รหัสเมนู: M053</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ปลา/ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM053.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.065718.jpg&appVersion=1.000036&signature=7a8a90772238345b30eebc286edd9aa29bd0efe0a52d4a5c2e3cd74f5509ecff');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลานิลทอดสามรส</h2>
+            <p class="code">รหัสเมนู: M054</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ทะเล/นึ่ง</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM054.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.065906.jpg&appVersion=1.000036&signature=997b431674a3c2e8f5e4d2f3225dc688c9db125ab94ef309c5e97cf9a269676a');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปลาหมึกไข่นึ่งมะนาว</h2>
+            <p class="code">รหัสเมนู: M055</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ผลไม้</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM055.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.070545.png&appVersion=1.000036&signature=4fce3ee1c85c7cf6bd752aac1fbe04206b18b4d972889e05ca0f5e2b0a4cf90e');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ผลไม้รวม เมล่อน สับปะรด แตงโม (ผลไม้ตามฤดูกาล)</h2>
+            <p class="code">รหัสเมนู: M056</p>
+        </div>
+        <p class="price">150,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ผัด/เผ็ด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM056.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.070709.jpg&appVersion=1.000036&signature=feaf6fd8d03bdde01e739de02f167df6f2521aab19c7184fac73a070598e7e36');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ผัดฉ่าทะเล</h2>
+            <p class="code">รหัสเมนู: M057</p>
+        </div>
+        <p class="price">400,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ผัด/เผ็ด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM057.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.071017.jpg&appVersion=1.000036&signature=b8c8f980bd1e9d6302a8226577f610b6129504e667a81cbdec72cd61714a855d');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ผัดฉ่าปลาหมึกไข่</h2>
+            <p class="code">รหัสเมนู: M058</p>
+        </div>
+        <p class="price">500,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ผัด/เผ็ด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM058.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.071743.jpg&appVersion=1.000036&signature=2611c1d1f413a0d0e83508869961fcb2254c3f32f6fdb671de483f3c397a29fd');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ผัดฉ่าหมูกรอบ</h2>
+            <p class="code">รหัสเมนู: M059</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ผัด/เผ็ด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM059.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.071943.jpg&appVersion=1.000036&signature=d79561864cda0c59b2e8a7c240347e9fc374628d8bce9476ba21098d60458969');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ผัดเผ็ดหมูป่า</h2>
+            <p class="code">รหัสเมนู: M060</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ผัด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM060.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.072102.jpg&appVersion=1.000036&signature=9c045e24fe84c9afc5cc71d578a9c3a57940b8bf8f2f73819eb45b5c119e4f12');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>พริกแกงหมูใส่ถั่วฝักยาว</h2>
+            <p class="code">รหัสเมนู: M061</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ยำ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM061.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.072254.jpg&appVersion=1.000036&signature=aca2966202b82b50cc020eda7dd04abcffff034802fd00773dc023dd7cce4421');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ยำผักบุ้งกรอบ หมูสับ กุ้ง</h2>
+            <p class="code">รหัสเมนู: M062</p>
+        </div>
+        <p class="price">290,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ยำ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM062.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.072725.jpg&appVersion=1.000036&signature=f7914bcc9e0fd758691383390f005f21ae5c31561a2dbbe001ce2e83b07478bb');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ยำวุ้นเส้นโบราณ หมูสับ กุ้ง</h2>
+            <p class="code">รหัสเมนู: M063</p>
+        </div>
+        <p class="price">290,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ยำ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM063.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.072856.jpg&appVersion=1.000036&signature=bf527b06f1e4a5a33fdba24d0298705ff6d5e536df0144a582ea0783a626d1e7');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ยำวุ้นเส้น หมูสับ กุ้ง</h2>
+            <p class="code">รหัสเมนู: M064</p>
+        </div>
+        <p class="price">290,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ยำ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM064.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.072956.jpg&appVersion=1.000036&signature=b76041a5117d7340b9bcd1c5cdd24862a74ce82e79efb000041ac94364131f6c');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ยำสามกรอบ</h2>
+            <p class="code">รหัสเมนู: M065</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ยำ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM065.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.073117.jpg&appVersion=1.000036&signature=3511d7ae044bd5d023043a45f627472b2ffe7631521072121a51f291f28bf506');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ยำหมูยอรวมมิตร</h2>
+            <p class="code">รหัสเมนู: M066</p>
+        </div>
+        <p class="price">270,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ลาบ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM066.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.074454.jpg&appVersion=1.000036&signature=f9398ebed387267889021a2a70fdcebda522e30088269be7746d2b6f23bc2d9f');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ลาบเป็ด</h2>
+            <p class="code">รหัสเมนู: M067</p>
+        </div>
+        <p class="price">350,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ทอด</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM067.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.074622.jpg&appVersion=1.000036&signature=d30c00d726eaa7778d5ed1816f32c9ed4c5c6bf741f7aaef639bb16b0104ec6a');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>สามชั้นทอดน้ำปลา</h2>
+            <p class="code">รหัสเมนู: M068</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ผัด/ทะเล</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM068.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.074802.jpg&appVersion=1.000036&signature=c7cf2d042d9719df00551af91ab67f0c8e913c0c94f4caba8f7f8380d4288e76');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>หมึกไข่ผัดผงกะหรี่</h2>
+            <p class="code">รหัสเมนู: M069</p>
+        </div>
+        <p class="price">400,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header" style="background-color: #ffe0b2; color: #d35400;">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">เมนูพิเศษ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM069.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.074930.jpg&appVersion=1.000036&signature=ef7f39debf2640fd9c4c92a9b7b2529bdb93b888bf677708ac685543e491a804');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ปูไข่ผัดผงกะหรี่ (ขนาด 7 ขีด- 9 ขีดต่อ 1 ตัว)</h2>
+            <p class="code">รหัสเมนู: M070</p>
+        </div>
+        <p class="price special-price">1,150,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">อบ</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.sgethai.com/wp-content/uploads/2022/09/220914-Content-%E0%B8%A7%E0%B8%B4%E0%B8%98%E0%B8%B5%E0%B8%97%E0%B8%B3%E0%B9%81%E0%B8%81%E0%B8%87%E0%B9%80%E0%B8%9C%E0%B9%87%E0%B8%94%E0%B9%80%E0%B8%9B%E0%B9%87%E0%B8%94%E0%B8%A2%E0%B9%88%E0%B8%B2%E0%B8%8703.webp');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>แกงเผ็ดเป็ดย่าง</h2>
+            <p class="code">รหัสเมนู: M071</p>
+        </div>
+        <p class="price">300,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">หลน</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM071.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.075314.jpg&appVersion=1.000036&signature=75e479baac87362b66fb7ecb90508a5313503d735a52606cee70e5ae3a515114');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>หลนเต้าเจี้ยว ผักสด</h2>
+            <p class="code">รหัสเมนู: M072</p>
+        </div>
+        <p class="price">270,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">ต้ม</span>
+    </div>
+    <div class="item-image" style="background-image: url('https://www.appsheet.com/image/getimageurl?appName=HongSa%E0%B8%A3%E0%B8%B5%E0%B8%AA%E0%B8%AD%E0%B8%A3%E0%B9%8C%E0%B8%97-62049337&tableName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F&fileName=1.%20%E0%B8%A3%E0%B8%B2%E0%B8%A2%E0%B8%81%E0%B8%B2%E0%B8%A3%E0%B8%AD%E0%B8%B2%E0%B8%AB%E0%B8%B2%E0%B8%A3%20Menu%20%F0%9F%8D%BD%EF%B8%8F_Images%2FM072.%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%A0%E0%B8%B2%E0%B8%9E.044327.jpg&appVersion=1.000036&signature=9dc52cd95443fc2cb1b459e5c512389b973225b411712dae02b66615468b1766');"></div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>หัวปลาแซลม่อนต้มซีอิ๋ว</h2>
+            <p class="code">รหัสเมนู: M073</p>
+        </div>
+        <p class="price">250,000.00</p>
+    </div>
+</div>
+
+
+<div class="menu-card drink-card">
+    <div class="status-header" style="background-color: #AA0000; color: #fff;">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category" style="color: #eee !important;">ไวน์แดง</span>
+    </div>
+    <div class="item-image" style="background-color: #5a0000; color: #fff; background-image: url('https://wineplanet.sk/www/files/image/og/149498886.JPG?v=1621363513');">
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ວາຍແດງ Unamine</h2>
+            <p class="code">รหัสเมนู: M074</p>
+        </div>
+        <p class="price special-price">1,189,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header" style="background-color: #FFD700; color: #000;">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category" style="color: #333 !important;">ไวน์ขาว</span>
+    </div>
+    <div class="item-image" style="background-color: #F0E68C; background-image: url('https://th.wine-now.com/media/catalog/product/cache/5836d291b7d5a67e34f92ee32ee5d955/w/w/www5103af.jpg');">
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ວາຍຂາວ Unamine</h2>
+            <p class="code">รหัสเมนู: M075</p>
+        </div>
+        <p class="price special-price">1,189,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header" style="background-color: #FFD700; color: #000;">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category" style="color: #333 !important;">ไวน์ขาว</span>
+    </div>
+    <div class="item-image" style="background-color: #F0E68C; background-image: url('https://static.vecteezy.com/system/resources/thumbnails/056/052/769/small/liquid-white-wine-splash-photo.jpg');">
+        ** [รอใส่รูปภาพ - M076] **
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ວາຍຂາວ Sideline</h2>
+            <p class="code">รหัสเมนู: M076</p>
+        </div>
+        <p class="price">749,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">เบียร์</span>
+    </div>
+    <div class="item-image" style="background-color: #333; background-image: url('https://www.time2drink.co/cdn/shop/files/Beer_Lao_Gold_Lager_Bottle_330ml_5.0.jpg?v=1739533638&width=1946');">
+
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ເບຍໂກນ</h2>
+            <p class="code">รหัสเมนู: M077</p>
+        </div>
+        <p class="price">26,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">เบียร์</span>
+    </div>
+    <div class="item-image" style="background-color: #333; background-image: url('https://media.istockphoto.com/id/458466621/photo/three-bottles-of-somersby-cider.jpg?s=612x612&w=0&k=20&c=GJYELXsHmR7N5B_Mxcg1lzslDah9eHTAhba9Std16So=');">
+        
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ຊໍາເມີບີ</h2>
+            <p class="code">รหัสเมนู: M078</p>
+        </div>
+        <p class="price">26,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">โซดา</span>
+    </div>
+    <div class="item-image" style="background-color: #007bff; background-image: url('https://gourmetmarketthailand.com/_next/image?url=https%3A%2F%2Fmedia-stark.gourmetmarketthailand.com%2Fproducts%2Fcover%2F8850999220000-1.webp&w=1200&q=75');">
+
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ໂຊດາສິງ</h2>
+            <p class="code">รหัสเมนู: M079</p>
+        </div>
+        <p class="price">15,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">น้ำอัดลม</span>
+    </div>
+    <div class="item-image" style="background-color: #333; background-image: url('https://www.shopping-d.com/cdn/shop/products/10PSC1225P-AXL-12-CT1225ml.png?v=1632560188&width=533');">
+        
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ແປັບຊີ່ຕຸກໃຫຍ່</h2>
+            <p class="code">รหัสเมนู: M080</p>
+        </div>
+        <p class="price">29,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">น้ำอัดลม</span>
+    </div>
+    <div class="item-image" style="background-color: #333; background-image: url('https://www.shopping-d.com/cdn/shop/products/800x800pxPEPSI.png?v=1594007653&width=533');">
+
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ແປັບຊີ່ປ່ອງ</h2>
+            <p class="code">รหัสเมนู: M081</p>
+        </div>
+        <p class="price">15,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">น้ำดื่ม</span>
+    </div>
+    <div class="item-image" style="background-color: #e6e6e6; background-image: url('https://www.nicepng.com/png/detail/86-863335_tiger-head-water-laos.png');">
+
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ນໍ້າດື່ມໃຫຍ່</h2>
+            <p class="code">รหัสเมนู: M082</p>
+        </div>
+        <p class="price">18,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">น้ำดื่ม</span>
+    </div>
+    <div class="item-image" style="background-color: #e6e6e6; background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcScjdaPDfke2V2-eVmLvEsJOmt25SnpgK7K6vM6AhnUkrn9hwhSMSAYhmWmzblCGbrntA4&usqp=CAU');">
+
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ນໍ້າດື່ມນ້ອຍ 350ml</h2>
+            <p class="code">รหัสเมนู: M083</p>
+        </div>
+        <p class="price">10,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">น้ำแข็ง</span>
+    </div>
+    <div class="item-image" style="background-color: #4CAF50; background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQF3S6Tc0zR0_KWjs_qQjaqTrrcuT9ilWOMCQ&s');">
+
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ນໍ້າກ້ອນໂຖນ້ອຍ</h2>
+            <p class="code">รหัสเมนู: M084</p>
+        </div>
+        <p class="price">18,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">น้ำแข็ง</span>
+    </div>
+    <div class="item-image" style="background-color: #4CAF50; background-image: url('https://media.istockphoto.com/id/1337387250/th/%E0%B8%A3%E0%B8%B9%E0%B8%9B%E0%B8%96%E0%B9%88%E0%B8%B2%E0%B8%A2/%E0%B8%96%E0%B8%B1%E0%B8%87%E0%B9%82%E0%B8%A5%E0%B8%AB%E0%B8%B0%E0%B8%97%E0%B8%B5%E0%B9%88%E0%B8%A1%E0%B8%B5%E0%B8%81%E0%B9%89%E0%B8%AD%E0%B8%99%E0%B8%99%E0%B9%89%E0%B9%8D%E0%B8%B2%E0%B9%81%E0%B8%82%E0%B9%87%E0%B8%87%E0%B9%81%E0%B8%A2%E0%B8%81%E0%B8%9A%E0%B8%99%E0%B8%AA%E0%B8%B5%E0%B8%82%E0%B8%B2%E0%B8%A7.jpg?s=612x612&w=0&k=20&c=FZWSfei1Wt0C-fda8irxkKvsVwoL6zxC6DuaMBxl2_c=');">
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ນໍ້າກ້ອນໂຖໃຫຍ່</h2>
+            <p class="code">รหัสเมนู: M085</p>
+        </div>
+        <p class="price">28,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">เบียร์</span>
+    </div>
+    <div class="item-image" style="background-color: #FFC300; background-image: url('https://images.deliveryhero.io/image/darkstores-la/8859313500019.jpg?height=176');">
+
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ເບຍລາວ</h2>
+            <p class="code">รหัสเมนู: M086</p>
+        </div>
+        <p class="price">38,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">เบียร์</span>
+    </div>
+    <div class="item-image" style="background-color: #C0C0C0; background-image: url('https://st.bigc-cs.com/cdn-cgi/image/format=webp,quality=90/public/media/catalog/product/09/88/8888017300809/thumbnail/8888017300809_4.jpg');">
+
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ເບຍໄຮນີເກັນ</h2>
+            <p class="code">รหัสเมนู: M087</p>
+        </div>
+        <p class="price">25,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">เหล้า</span>
+    </div>
+    <div class="item-image" style="background-color: #6A1B9A; background-image: url('https://f.ptcdn.info/078/081/000/rxhgfr1dv35aR1wg8Wjee-o.jpg');">
+
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ເຫລົ້າລີເຈນຊີ</h2>
+            <p class="code">รหัสเมนู: M088</p>
+        </div>
+        <p class="price">553,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card drink-card">
+    <div class="status-header">
+        <span>พร้อมจำหน่าย</span>
+        <span class="category">เหล้า</span>
+    </div>
+    <div class="item-image" style="background-color: #FF8F00; background-image: url('https://img.wongnai.com/p/1920x0/2018/11/13/9abe8fa2aa1f4e5cb48c98fe3c55a073.jpg');">
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>ເຫລົ້າແສງໂສມ</h2>
+            <p class="code">รหัสเมนู: M089</p>
+        </div>
+        <p class="price">287,000.00</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M090)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 90 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M090</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M091)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 91 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M091</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M092)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 92 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M092</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M093)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 93 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M093</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M094)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 94 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M094</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M095)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 95 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M095</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M096)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 96 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M096</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M097)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 97 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M097</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M098)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 98 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M098</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M099)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 99 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M099</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+<div class="menu-card placeholder">
+    <div class="status-header">
+        <span>รายการว่าง</span>
+        <span class="category">N/A</span>
+    </div>
+    <div class="item-image">
+        พื้นที่สำหรับรูปภาพเมนูใหม่ (M100)
+    </div>
+    <div class="item-details">
+        <div class="item-text">
+            <h2>รายการที่ 100 - กำลังเพิ่มเติมเมนู</h2>
+            <p class="code">รหัสเมนู: M100</p>
+        </div>
+        <p class="price">รอราคา</p>
+    </div>
+</div>
+
+</body>
+</html>
